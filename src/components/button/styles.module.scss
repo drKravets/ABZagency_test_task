@@ -1,0 +1,21 @@
+.button {
+  border: none;
+  border-radius: 80px;
+  width: 100px;
+  text-align: center;
+  padding: 4px 0px;
+}
+
+.active {
+  background-color: var(--background-yellow);
+  cursor: pointer;
+}
+
+.active:hover {
+  background-color: var(--background-yellow-hover);
+}
+
+.disabled {
+  background-color: var(--background-grey);
+  color: var(--text-white);
+}
