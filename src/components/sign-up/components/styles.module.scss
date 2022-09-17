@@ -1,0 +1,44 @@
+.radioOption {
+  display: none;
+}
+
+.label {
+  cursor: pointer;
+  padding-left: 12px;
+}
+
+.label::before {
+  content: '';
+  position: relative;
+  top: 4px;
+  right: 12px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #d0cfcf;
+  border-radius: 50%;
+}
+
+.label::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 9px;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #00bdd3;
+  border: 1px solid #00bdd3;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.radioOption:checked + .label::after,
+.radioOption:checked + .label::before {
+  opacity: 1;
+  border: 1px solid #00bdd3;
+}
+
+.inputContainer {
+  position: relative;
+}

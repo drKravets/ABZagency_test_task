@@ -7,22 +7,23 @@ import { getUsers } from '../../services/user-api.service';
 import { Header } from '../header/header';
 import { Intro } from '../intro/intro';
 import { UsersCardList } from '../user-cards-list/users-card-list';
+import { SignUp } from '../sign-up/sign-up';
 import styles from './styles.module.scss';
 
-export const App: FC = () => {
-  const defaultUsers = {
-    success: true,
-    page: 1,
-    total_pages: 1,
-    total_users: 1,
-    count: 1,
-    links: {
-      next_url: null,
-      prev_url: null,
-    },
-    users: [],
-  };
+const defaultUsers = {
+  success: true,
+  page: 1,
+  total_pages: 1,
+  total_users: 1,
+  count: 1,
+  links: {
+    next_url: null,
+    prev_url: null,
+  },
+  users: [],
+};
 
+export const App: FC = () => {
   const [users, setUsers] =
     useState<UsersResponseDto>(defaultUsers);
 
@@ -36,6 +37,7 @@ export const App: FC = () => {
       <Intro />
       <main className={styles.main}>
         <UsersCardList users={users.users} />
+        <SignUp />
       </main>
     </div>
   );

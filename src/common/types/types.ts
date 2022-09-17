@@ -4,3 +4,7 @@ export {
   type UsersResponseDto,
   type PaginationRequestParamsDto,
 } from './users/users';
+export {
+  type PositionResponseDto,
+  type PositionsResponseDto,
+} from './positions/positions';

@@ -11,8 +11,11 @@
   -webkit-font-smoothing: antialiased;
 }
 body,
-p {
+p,
+input,
+legend {
   margin: 0;
+  padding: 0;
 }
 a {
   text-decoration: none;

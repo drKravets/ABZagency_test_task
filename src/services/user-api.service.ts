@@ -1,6 +1,8 @@
 import React from 'react';
+
 import {
   PaginationRequestParamsDto,
+  PositionsResponseDto,
   UsersResponseDto,
 } from '../common/types/types';
 
@@ -17,4 +19,16 @@ const getUsers = async (
     .then((data) => setFunction(data));
 };
 
-export { getUsers };
+const getPositions = async (
+  setFunction: React.Dispatch<
+    React.SetStateAction<PositionsResponseDto>
+  >
+) => {
+  fetch(
+    'https://frontend-test-assignment-api.abz.agency/api/v1/positions'
+  )
+    .then((res) => res.json())
+    .then((data) => setFunction(data));
+};
+
+export { getUsers, getPositions };
