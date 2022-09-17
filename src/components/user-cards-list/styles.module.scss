@@ -1,0 +1,9 @@
+.cardsBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cardsContainer div:last-child {
+  margin-bottom: 50px;
+}

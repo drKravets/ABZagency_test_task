@@ -4,6 +4,7 @@
   width: 100px;
   text-align: center;
   padding: 4px 0px;
+  color: initial;
 }
 
 .active {
@@ -17,5 +18,5 @@
 
 .disabled {
   background-color: var(--background-grey);
-  color: var(--text-white);
+  color: var(--text-white-semi-transparent);
 }
