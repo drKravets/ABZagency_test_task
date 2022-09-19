@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import {
   FC,
   PositionsResponseDto,
-  UsersResponseDto,
 } from '../../common/types/types';
 import { getPositions } from '../../services/user-api.service';
 import { Button } from '../button/button';
@@ -12,6 +11,7 @@ import { useForm } from 'react-hook-form';
 import styles from './styles.module.scss';
 import { Input } from './components/input/input';
 import { Validation } from '../../common/data/validation';
+import { SignUpSuccess } from '../sign-up-success/sign-up-success';
 
 const defaultPositions: PositionsResponseDto = {
   success: false,
@@ -19,42 +19,40 @@ const defaultPositions: PositionsResponseDto = {
 };
 
 type Props = {
-  setUsers: React.Dispatch<
-    React.SetStateAction<UsersResponseDto>
-  >;
   onSubmit: (values: any) => Promise<void>;
+  userRegistered: boolean;
 };
 
-export const SignUp: FC<Props> = ({ onSubmit }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm({
-    mode: 'all',
-    reValidateMode: 'onChange',
-  });
+export const SignUp = forwardRef<HTMLDivElement, Props>(
+  ({ onSubmit, userRegistered }, ref) => {
+    const {
+      register,
+      handleSubmit,
+      formState: { errors },
+      watch,
+    } = useForm({
+      mode: 'all',
+      reValidateMode: 'onChange',
+    });
 
-  const [positions, setPositions] =
-    useState<PositionsResponseDto>(defaultPositions);
+    const [positions, setPositions] =
+      useState<PositionsResponseDto>(defaultPositions);
 
-  useEffect(() => {
-    getPositions(setPositions);
-  }, []);
+    useEffect(() => {
+      getPositions(setPositions);
+    }, []);
 
-  const uploadWatch = watch('img');
+    const uploadWatch = watch('img');
 
-  const uploadText = uploadWatch?.length
-    ? uploadWatch[0].name
-    : 'Upload your photo';
+    const uploadText = uploadWatch?.length
+      ? uploadWatch[0].name
+      : 'Upload your photo';
 
-  return (
-    <div>
-      <Heading
-        text='Working with POST request'
-        margin={true}
-      />
+    const headingText = userRegistered
+      ? 'User successfully registered'
+      : 'Working with POST request';
+
+    const form = (
       <form
         onSubmit={handleSubmit(onSubmit)}
         className={styles.form}
@@ -174,6 +172,13 @@ export const SignUp: FC<Props> = ({ onSubmit }) => {
           }
         />
       </form>
-    </div>
-  );
-};
+    );
+
+    return (
+      <div ref={ref}>
+        <Heading text={headingText} margin={true} />
+        {userRegistered ? <SignUpSuccess /> : form}
+      </div>
+    );
+  }
+);

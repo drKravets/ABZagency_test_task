@@ -1,3 +1,4 @@
+import { forwardRef, Ref } from 'react';
 import {
   FC,
   UserResponseDto,
@@ -9,12 +10,15 @@ import styles from './styles.module.scss';
 
 type Props = { users: UserResponseDto[] };
 
-export const UsersCardList: FC<Props> = ({ users }) => {
+export const UsersCardList = forwardRef<
+  HTMLDivElement,
+  Props
+>(({ users }, ref) => {
   const headerText = 'Working with GET request';
   return (
-    <div className={styles.cardsBlock}>
+    <div className={styles.cardsBlock} ref={ref}>
       <Heading text={headerText} margin={true} />
-      <div className={styles.cardsContainer}>
+      <div ref={ref} className={styles.cardsContainer}>
         {users.map((user) => (
           <UserCard
             name={user.name}
@@ -29,4 +33,4 @@ export const UsersCardList: FC<Props> = ({ users }) => {
       <Button text='Show more' onClick={() => {}} />
     </div>
   );
-};
+});
