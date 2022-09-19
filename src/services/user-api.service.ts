@@ -42,14 +42,10 @@ const getToken = async (
 };
 
 const createUser = async (postObject: object) => {
-  fetch(
+  return fetch(
     'https://frontend-test-assignment-api.abz.agency/api/v1/users',
     postObject
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      console.log('createUser response: ', data);
-    });
+  );
 };
 
 export { getUsers, getPositions, getToken, createUser };

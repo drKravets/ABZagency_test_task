@@ -2,31 +2,35 @@ import { useEffect, useState } from 'react';
 import {
   FC,
   PositionsResponseDto,
-  SignUpFormDto,
+  UsersResponseDto,
 } from '../../common/types/types';
-import {
-  getPositions,
-  getToken,
-  createUser,
-} from '../../services/user-api.service';
+import { getPositions } from '../../services/user-api.service';
 import { Button } from '../button/button';
 import { Heading } from '../heading/heading';
 import { RadioInput } from './components/radio-input/radio-input';
 import { useForm } from 'react-hook-form';
 import styles from './styles.module.scss';
+import { Input } from './components/input/input';
+import { Validation } from '../../common/data/validation';
 
 const defaultPositions: PositionsResponseDto = {
   success: false,
   positions: [],
 };
 
-export const SignUp: FC = () => {
+type Props = {
+  setUsers: React.Dispatch<
+    React.SetStateAction<UsersResponseDto>
+  >;
+  onSubmit: (values: any) => Promise<void>;
+};
+
+export const SignUp: FC<Props> = ({ onSubmit }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
-    reset,
   } = useForm({
     mode: 'all',
     reValidateMode: 'onChange',
@@ -34,71 +38,35 @@ export const SignUp: FC = () => {
 
   const [positions, setPositions] =
     useState<PositionsResponseDto>(defaultPositions);
-  const [token, setToken] = useState<String>('');
 
-  const onSubmit = (values: any) => {
-    const data: SignUpFormDto = values;
-    const createUserFormData = new FormData();
-    createUserFormData.append('name', data.name);
-    createUserFormData.append('email', data.email);
-    createUserFormData.append('phone', data.phone);
-    createUserFormData.append('position_id', data.position);
-    createUserFormData.append('photo', data.img[0]);
-
-    const postObject = {
-      method: 'POST',
-      body: createUserFormData,
-      headers: {
-        Token: token,
-      },
-    };
-    createUser(postObject);
-    reset();
-  };
   useEffect(() => {
     getPositions(setPositions);
-    getToken(setToken);
   }, []);
 
-  const text = 'Working with POST request';
   const uploadWatch = watch('img');
 
   const uploadText = uploadWatch?.length
     ? uploadWatch[0].name
     : 'Upload your photo';
 
-  const emailRegex =
-    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
-
   return (
     <div>
-      <Heading text={text} margin={true} />
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <Heading
+        text='Working with POST request'
+        margin={true}
+      />
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={styles.form}
+      >
         <div className={styles.inputWrapper}>
-          <input
-            placeholder='Your name'
-            className={`${styles.input} ${
-              errors?.name && styles.errorField
-            }`}
-            {...register('name', {
-              required: true,
-              minLength: 2,
-              maxLength: 60,
-            })}
+          <Input
+            register={register}
+            placeHolder={'Your name'}
+            validation={Validation.name}
+            name='name'
+            errors={errors}
           />
-          <label
-            htmlFor='name'
-            className={`${styles.inputLabel} ${
-              errors?.name && styles.errorLabel
-            }`}
-          >
-            Your name
-          </label>
-          {errors?.name?.type === 'required' && (
-            <span className={styles.error}>
-              This field is required
-            </span>
-          )}
           {errors?.name?.type === 'minLength' && (
             <span className={styles.error}>
               Add at least 2 symbols
@@ -112,31 +80,13 @@ export const SignUp: FC = () => {
         </div>
 
         <div className={styles.inputWrapper}>
-          <input
-            className={`${styles.input} ${
-              errors?.email && styles.errorField
-            }`}
-            placeholder='Email'
-            {...register('email', {
-              required: true,
-              minLength: 2,
-              maxLength: 100,
-              pattern: emailRegex,
-            })}
+          <Input
+            register={register}
+            placeHolder={'Email'}
+            validation={Validation.email}
+            name='email'
+            errors={errors}
           />
-          <label
-            htmlFor='email'
-            className={`${styles.inputLabel} ${
-              errors?.email && styles.errorLabel
-            }`}
-          >
-            Email
-          </label>
-          {errors?.email?.type === 'required' && (
-            <span className={styles.error}>
-              This field is required
-            </span>
-          )}
           {errors?.email?.type === 'minLength' && (
             <span className={styles.error}>
               Add at least 2 symbols
@@ -153,26 +103,15 @@ export const SignUp: FC = () => {
             </span>
           )}
         </div>
+
         <div className={styles.phoneInput}>
-          <input
-            className={`${styles.input} ${
-              errors?.phone && styles.errorField
-            }`}
-            type='phone'
-            placeholder='Phone'
-            {...register('phone', {
-              required: true,
-              pattern: /^[\+]{0,1}380([0-9]{9})$/g,
-            })}
+          <Input
+            register={register}
+            placeHolder={'Phone'}
+            validation={Validation.phone}
+            name='phone'
+            errors={errors}
           />
-          <label
-            htmlFor='phone'
-            className={`${styles.inputLabel} ${
-              errors?.phone && styles.errorLabel
-            }`}
-          >
-            Phone
-          </label>
           {!errors?.phone && (
             <span className={styles.phoneExample}>
               +38 (XXX) XXX - XX - XX
@@ -182,11 +121,6 @@ export const SignUp: FC = () => {
             <span className={styles.error}>
               Please enter phone that matches the pattern
               +38 (XXX) XXX - XX - XX
-            </span>
-          )}
-          {errors?.phone?.type === 'required' && (
-            <span className={styles.error}>
-              This field is required
             </span>
           )}
         </div>

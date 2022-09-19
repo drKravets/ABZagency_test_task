@@ -1,15 +1,23 @@
-.input {
-  border: 1px solid var(--border-grey);
-  border-radius: 4px;
-  line-height: 26px;
-  padding: 14px 16px;
-  width: 100%;
-  margin-bottom: 50px;
-  background-color: var(--background-grey-light);
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.phoneInput {
+// .input {
+//   border: 1px solid var(--border-grey);
+//   border-radius: 4px;
+//   line-height: 26px;
+//   padding: 14px 16px;
+//   width: 100%;
+//   margin-bottom: 50px;
+//   background-color: var(--background-grey-light);
+// }
+
+.phoneInput,
+.inputWrapper {
   position: relative;
+  width: 100%;
 }
 
 .phoneExample {
@@ -85,10 +93,6 @@
   outline: none !important;
 }
 
-.inputWrapper {
-  position: relative;
-}
-
 .errorFieldset {
   .legend {
     color: var(--error-red);
@@ -108,15 +112,15 @@
   opacity: 0;
 }
 
-.input:focus ~ .inputLabel,
-.input:not(:placeholder-shown) ~ .inputLabel {
-  opacity: 1;
-}
+// .input:focus ~ .inputLabel,
+// .input:not(:placeholder-shown) ~ .inputLabel {
+//   opacity: 1;
+// }
 
-.input:focus::placeholder {
-  opacity: 0;
-  transition: 0.1s ease;
-}
+// .input:focus::placeholder {
+//   opacity: 0;
+//   transition: 0.1s ease;
+// }
 
 .errorLabel {
   color: var(--error-red);
