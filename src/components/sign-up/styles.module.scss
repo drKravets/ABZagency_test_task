@@ -1,8 +1,7 @@
 .input {
-  border: 1px solid #d0cfcf;
+  border: 1px solid var(--border-grey);
   border-radius: 4px;
   line-height: 26px;
-  color: var(--text-grey);
   padding: 14px 16px;
   width: 100%;
   margin-bottom: 50px;
@@ -13,11 +12,10 @@
   position: relative;
 }
 
-.phoneInput::after {
-  content: '+38 (XXX) XXX - XX - XX';
+.phoneExample {
   font-size: 12px;
   line-height: 14px;
-  color: #7e7e7e;
+  color: var(--text-grey);
   position: absolute;
   left: 16px;
   top: 60px;
@@ -28,47 +26,104 @@
   margin-bottom: 11px;
 }
 
-.radioOption {
-  display: none;
-}
-
-.label {
-  cursor: pointer;
-  padding-left: 12px;
-}
-
-.label::before {
-  content: '';
+.uploadFile {
+  width: 100%;
+  margin: 47px 0 50px 0;
+  display: flex;
   position: relative;
-  top: 4px;
-  right: 12px;
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 1px solid #d0cfcf;
-  border-radius: 50%;
 }
 
-.label::after {
-  content: '';
+.uploadInput {
   position: absolute;
-  left: 5px;
-  top: 9px;
+  padding: 14px 15px;
+  opacity: 0;
+  width: 100%;
+}
+
+.uploadBtn {
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.87);
+  border-radius: 4px 0px 0px 4px;
+  padding: 14px 15px;
+}
+
+.uploadMsg {
   display: inline-block;
-  width: 10px;
-  height: 10px;
-  background: #00bdd3;
-  border: 1px solid #00bdd3;
-  border-radius: 50%;
+  padding: 14px 0 14px 16px;
+  width: 100%;
+  border: 1px solid var(--border-grey);
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+  color: var(--text-grey);
+}
+
+.error {
+  color: var(--error-red);
+  position: absolute;
+  left: 17px;
+  top: 60px;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.errorRadio {
+  color: var(--error-red);
+  position: absolute;
+  left: 17px;
+  bottom: -15px;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.errorField {
+  border: 2px solid var(--error-red);
+  line-height: 24px;
+}
+
+.errorField:focus {
+  border: 2px solid var(--error-red);
+  outline: none !important;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.errorFieldset {
+  .legend {
+    color: var(--error-red);
+  }
+}
+
+.inputLabel {
+  position: absolute;
+  font-size: 12px;
+  line-height: 14px;
+  background-color: var(--background-grey-light);
+  color: var(--text-grey);
+  top: -8px;
+  left: 14px;
+  padding: 0 4px;
+  transition: 0.3s ease;
   opacity: 0;
 }
 
-.radioOption:checked + .label::after,
-.radioOption:checked + .label::before {
+.input:focus ~ .inputLabel,
+.input:not(:placeholder-shown) ~ .inputLabel {
   opacity: 1;
-  border: 1px solid #00bdd3;
 }
 
-.inputContainer {
-  position: relative;
+.input:focus::placeholder {
+  opacity: 0;
+  transition: 0.1s ease;
+}
+
+.errorLabel {
+  color: var(--error-red);
+}
+
+.uploadTextError {
+  border: 2px solid var(--error-red);
+  line-height: 24px;
+  border-left: none;
 }

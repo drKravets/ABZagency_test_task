@@ -3,6 +3,8 @@ export {
   type UserResponseDto,
   type UsersResponseDto,
   type PaginationRequestParamsDto,
+  type UserRequestDto,
+  type SignUpFormDto,
 } from './users/users';
 export {
   type PositionResponseDto,

@@ -4,7 +4,7 @@ import styles from './styles.module.scss';
 type Props = {
   text: string;
   disabled?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 export const Button: FC<Props> = ({

@@ -1,0 +1,9 @@
+.legend {
+  margin-bottom: 11px;
+}
+
+.errorFieldset {
+  .legend {
+    color: var(--error-red);
+  }
+}
