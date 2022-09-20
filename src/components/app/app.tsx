@@ -14,7 +14,7 @@ import { Intro } from '../intro/intro';
 import { UsersCardList } from '../user-cards-list/users-card-list';
 import { SignUp } from '../sign-up/sign-up';
 import styles from './styles.module.scss';
-import { Notification } from '../../services/notification.service';
+import { Loader } from '../loader/loader';
 
 const defaultUsers = {
   success: true,
@@ -33,15 +33,18 @@ export const App: FC = () => {
   const [users, setUsers] =
     useState<UsersResponseDto>(defaultUsers);
 
+  const [loading, setLoading] = useState(false);
+
   const handleLoadMore = () => {
-    getUsers(users, setUsers, false);
+    setLoading(true);
+    getUsers(users, setUsers, false, setLoading);
   };
 
   const usersSection = useRef<HTMLDivElement>(null);
   const signUpSection = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    getUsers(users, setUsers, true);
+    getUsers(users, setUsers, true, setLoading);
     getToken(setToken);
   }, []);
 
@@ -64,6 +67,7 @@ export const App: FC = () => {
   };
 
   const onSubmit = async (values: any) => {
+    setLoading(true);
     const data: SignUpFormDto = values;
     const createUserFormData = new FormData();
     createUserFormData.append('name', data.name);
@@ -79,9 +83,12 @@ export const App: FC = () => {
         Token: token,
       },
     };
-    const response = await createUser(postObject);
+    const response = await createUser(
+      postObject,
+      setLoading
+    );
     if (response?.status === 201) {
-      getUsers(users, setUsers, true);
+      getUsers(users, setUsers, true, setLoading);
       setUserRegistered(true);
     }
   };
@@ -100,18 +107,13 @@ export const App: FC = () => {
           handleLoadMore={handleLoadMore}
         />
         <SignUp
+          setLoading={setLoading}
           onSubmit={onSubmit}
           userRegistered={userRegistered}
           ref={signUpSection}
         />
-        <button
-          onClick={() => {
-            Notification.error('error');
-          }}
-        >
-          Notify
-        </button>
       </main>
+      {loading && <Loader />}
     </div>
   );
 };

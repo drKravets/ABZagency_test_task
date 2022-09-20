@@ -21,10 +21,11 @@ const defaultPositions: PositionsResponseDto = {
 type Props = {
   onSubmit: (values: any) => Promise<void>;
   userRegistered: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const SignUp = forwardRef<HTMLDivElement, Props>(
-  ({ onSubmit, userRegistered }, ref) => {
+  ({ onSubmit, userRegistered, setLoading }, ref) => {
     const {
       register,
       handleSubmit,
@@ -170,6 +171,10 @@ export const SignUp = forwardRef<HTMLDivElement, Props>(
           disabled={
             Object.keys(errors)?.length ? true : false
           }
+          onClick={() => {
+            setLoading(true);
+          }}
+          setLoading={setLoading}
         />
       </form>
     );

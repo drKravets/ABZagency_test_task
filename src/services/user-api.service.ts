@@ -12,7 +12,8 @@ const getUsers = async (
   setFunction: React.Dispatch<
     React.SetStateAction<UsersResponseDto>
   >,
-  defaultRequest: boolean
+  defaultRequest: boolean,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const page = DefaultUsersPageAndCount.PAGE;
   const count = DefaultUsersPageAndCount.COUNT;
@@ -26,7 +27,9 @@ const getUsers = async (
           const msg = data.message;
           toast.error(msg);
         });
+        setLoading(false);
       } else {
+        setLoading(false);
         return res.json().then((data) => {
           setFunction(data);
         });
@@ -39,11 +42,13 @@ const getUsers = async (
   ) {
     fetch(users.links.next_url).then((res) => {
       if (!(res.status == 200 || res.status === 201)) {
+        setLoading(false);
         res.json().then((data) => {
           const msg = data.message;
           toast.error(msg);
         });
       } else {
+        setLoading(false);
         return res.json().then((data) => {
           const usersData = [...users.users, ...data.users];
           const newData = { ...data };
@@ -93,17 +98,22 @@ const getToken = async (
   });
 };
 
-const createUser = async (postObject: object) => {
+const createUser = async (
+  postObject: object,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+) => {
   return fetch(
     'https://frontend-test-assignment-api.abz.agency/api/v1/users',
     postObject
   ).then((res) => {
     if (!(res.status == 200 || res.status === 201)) {
+      setLoading(false);
       res.json().then((data) => {
         const msg = data.message;
         toast.error(msg);
       });
     } else {
+      setLoading(false);
       return res;
     }
   });

@@ -1,0 +1,17 @@
+.loaderContainer {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  margin-top: -24px;
+  margin-left: -24px;
+}
+
+.loader {
+  animation: go-round infinite 1s;
+}
+
+@keyframes go-round {
+  100% {
+    transform: rotate(360deg);
+  }
+}
