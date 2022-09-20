@@ -14,10 +14,12 @@ export const Header: FC<Props> = ({
 }) => {
   return (
     <header className={styles.header}>
-      <Logo />
-      <div className={styles.buttonGroup}>
-        <Button text='Users' onClick={usersOnClick} />
-        <Button text='Sign up' onClick={signUpOnClick} />
+      <div className={styles.headerContentContainer}>
+        <Logo />
+        <div className={styles.buttonGroup}>
+          <Button text='Users' onClick={usersOnClick} />
+          <Button text='Sign up' onClick={signUpOnClick} />
+        </div>
       </div>
     </header>
   );

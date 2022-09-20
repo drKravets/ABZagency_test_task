@@ -18,6 +18,10 @@ legend {
   padding: 0;
   color: var(--text-black-semi-transparent);
 }
+
+body {
+  background-color: var(--background-grey-light);
+}
 a {
   text-decoration: none;
   color: inherit;

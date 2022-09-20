@@ -1,8 +1,5 @@
 import { forwardRef, useEffect, useState } from 'react';
-import {
-  FC,
-  PositionsResponseDto,
-} from '../../common/types/types';
+import { PositionsResponseDto } from '../../common/types/types';
 import { getPositions } from '../../services/user-api.service';
 import { Button } from '../button/button';
 import { Heading } from '../heading/heading';
@@ -142,9 +139,19 @@ export const SignUp = forwardRef<HTMLDivElement, Props>(
             id='img'
             {...register('img', {
               required: true,
+              validate: {
+                lessThan10MB: (files) =>
+                  files[0]?.size < 5000000,
+              },
             })}
-            accept='image/*'
+            accept='.jpeg,  .jpg'
           />
+          {errors?.img?.type === 'lessThan10MB' && (
+            <span className={styles.errorRadio}>
+              Max file size is 5MB
+            </span>
+          )}
+
           <button
             type='button'
             className={`${styles.uploadBtn} ${
