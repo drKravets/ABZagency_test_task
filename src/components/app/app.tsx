@@ -14,6 +14,7 @@ import { Intro } from '../intro/intro';
 import { UsersCardList } from '../user-cards-list/users-card-list';
 import { SignUp } from '../sign-up/sign-up';
 import styles from './styles.module.scss';
+import { Notification } from '../../services/notification.service';
 
 const defaultUsers = {
   success: true,
@@ -79,7 +80,7 @@ export const App: FC = () => {
       },
     };
     const response = await createUser(postObject);
-    if (response.status === 201) {
+    if (response?.status === 201) {
       getUsers(users, setUsers, true);
       setUserRegistered(true);
     }
@@ -103,6 +104,13 @@ export const App: FC = () => {
           userRegistered={userRegistered}
           ref={signUpSection}
         />
+        <button
+          onClick={() => {
+            Notification.error('error');
+          }}
+        >
+          Notify
+        </button>
       </main>
     </div>
   );
