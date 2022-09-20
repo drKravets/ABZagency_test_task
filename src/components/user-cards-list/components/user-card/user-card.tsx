@@ -1,5 +1,6 @@
 import { FC } from '../../../../common/types/types';
 import styles from './styles.module.scss';
+import DefaultAvatar from '../../../../assets/images/photo-cover.svg';
 
 type Props = {
   name: string;
@@ -22,6 +23,10 @@ export const UserCard: FC<Props> = ({
         className={styles.userAvatar}
         src={photoUrl}
         alt='user photo'
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null;
+          currentTarget.src = DefaultAvatar;
+        }}
       />
       <p className={`${styles.userName} ${styles.text}`}>
         {name}

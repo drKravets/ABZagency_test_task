@@ -1,4 +1,4 @@
-import SuccessRegistration from '../../assets/images/360-success.jpg';
+import SuccessRegistration from '../../assets/images/success-registration.svg';
 
 const SignUpSuccess = () => {
   return (

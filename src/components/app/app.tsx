@@ -14,7 +14,6 @@ import { Intro } from '../intro/intro';
 import { UsersCardList } from '../user-cards-list/users-card-list';
 import { SignUp } from '../sign-up/sign-up';
 import styles from './styles.module.scss';
-import { SignUpSuccess } from '../sign-up-success/sign-up-success';
 
 const defaultUsers = {
   success: true,
@@ -32,11 +31,16 @@ const defaultUsers = {
 export const App: FC = () => {
   const [users, setUsers] =
     useState<UsersResponseDto>(defaultUsers);
+
+  const handleLoadMore = () => {
+    getUsers(users, setUsers, false);
+  };
+
   const usersSection = useRef<HTMLDivElement>(null);
   const signUpSection = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    getUsers(setUsers, { page: 1, count: 5 });
+    getUsers(users, setUsers, true);
     getToken(setToken);
   }, []);
 
@@ -76,7 +80,7 @@ export const App: FC = () => {
     };
     const response = await createUser(postObject);
     if (response.status === 201) {
-      getUsers(setUsers, { page: 1, count: 6 });
+      getUsers(users, setUsers, true);
       setUserRegistered(true);
     }
   };
@@ -90,10 +94,10 @@ export const App: FC = () => {
       <Intro signUpOnClick={signUpOnClick} />
       <main className={styles.main}>
         <UsersCardList
-          users={users.users}
+          users={users}
           ref={usersSection}
+          handleLoadMore={handleLoadMore}
         />
-
         <SignUp
           onSubmit={onSubmit}
           userRegistered={userRegistered}
