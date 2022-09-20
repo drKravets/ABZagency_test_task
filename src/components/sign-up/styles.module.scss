@@ -51,6 +51,9 @@
   display: inline-block;
   padding: 14px 0 14px 16px;
   width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   border: 1px solid var(--border-grey);
   border-left: none;
   border-radius: 0 4px 4px 0;
@@ -103,16 +106,6 @@
   transition: 0.3s ease;
   opacity: 0;
 }
-
-// .input:focus ~ .inputLabel,
-// .input:not(:placeholder-shown) ~ .inputLabel {
-//   opacity: 1;
-// }
-
-// .input:focus::placeholder {
-//   opacity: 0;
-//   transition: 0.1s ease;
-// }
 
 .errorLabel {
   color: var(--error-red);

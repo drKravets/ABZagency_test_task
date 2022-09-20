@@ -27,6 +27,27 @@
   overflow: hidden;
 }
 
+.tooltip {
+  position: relative;
+  cursor: pointer;
+}
+
+.tooltip:hover .tooltipText {
+  display: inline-block;
+}
+
+.tooltipText {
+  display: none;
+  position: absolute;
+  background: var(--text-black-semi-transparent);
+  border-radius: 4px;
+  text-align: center;
+  color: var(--color-white);
+  padding: 3px 16px;
+  top: 30px;
+  left: 20px;
+}
+
 @media screen and (min-width: 768px) {
   .card {
     width: 344px;

@@ -132,6 +132,7 @@ export const SignUp = forwardRef<HTMLDivElement, Props>(
             </span>
           )}
         </div>
+
         <div className={styles.uploadFile}>
           <input
             className={styles.uploadInput}
@@ -146,11 +147,6 @@ export const SignUp = forwardRef<HTMLDivElement, Props>(
             })}
             accept='.jpeg,  .jpg'
           />
-          {errors?.img?.type === 'lessThan10MB' && (
-            <span className={styles.errorRadio}>
-              Max file size is 5MB
-            </span>
-          )}
 
           <button
             type='button'
@@ -170,6 +166,11 @@ export const SignUp = forwardRef<HTMLDivElement, Props>(
           {errors?.img?.type === 'required' && (
             <span className={styles.error}>
               This field is required
+            </span>
+          )}
+          {errors?.img?.type === 'lessThan10MB' && (
+            <span className={styles.errorRadio}>
+              Max file size is 5MB
             </span>
           )}
         </div>

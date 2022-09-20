@@ -32,7 +32,11 @@ export const UserCard: FC<Props> = ({
         {name}
       </p>
       <p className={styles.text}>{position}</p>
-      <p className={styles.text}>{email}</p>
+      <div className={styles.tooltip}>
+        <p className={styles.text}>{email}</p>
+        <span className={styles.tooltipText}>{email}</span>
+      </div>
+
       <p className={styles.text}>{phone}</p>
     </div>
   );
