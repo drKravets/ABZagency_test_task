@@ -9,6 +9,7 @@ import styles from './styles.module.scss';
 import { Input } from './components/input/input';
 import { Validation } from '../../common/data/validation';
 import { SignUpSuccess } from '../sign-up-success/sign-up-success';
+import { getFileWidthAndHeigh } from '../../helpers/helper';
 
 const defaultPositions: PositionsResponseDto = {
   success: false,
@@ -143,6 +144,17 @@ export const SignUp = forwardRef<HTMLDivElement, Props>(
               validate: {
                 lessThan10MB: (files) =>
                   files[0]?.size < 5000000,
+                minDimensions: async (files) => {
+                  const dimensions =
+                    await getFileWidthAndHeigh(files[0]);
+                  const heighMatchCRiteria =
+                    dimensions.height >= 70;
+                  const widthMatchCRiteria =
+                    dimensions.width >= 70;
+                  return (
+                    heighMatchCRiteria && widthMatchCRiteria
+                  );
+                },
               },
             })}
             accept='.jpeg,  .jpg'
@@ -171,6 +183,11 @@ export const SignUp = forwardRef<HTMLDivElement, Props>(
           {errors?.img?.type === 'lessThan10MB' && (
             <span className={styles.errorRadio}>
               Max file size is 5MB
+            </span>
+          )}
+          {errors?.img?.type === 'minDimensions' && (
+            <span className={styles.errorRadio}>
+              File should be at least 70X70
             </span>
           )}
         </div>

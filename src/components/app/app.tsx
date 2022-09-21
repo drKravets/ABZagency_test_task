@@ -70,9 +70,9 @@ export const App: FC = () => {
     setLoading(true);
     const data: SignUpFormDto = values;
     const createUserFormData = new FormData();
-    createUserFormData.append('name', data.name);
-    createUserFormData.append('email', data.email);
-    createUserFormData.append('phone', data.phone);
+    createUserFormData.append('name', data.name.trim());
+    createUserFormData.append('email', data.email.trim());
+    createUserFormData.append('phone', data.phone.trim());
     createUserFormData.append('position_id', data.position);
     createUserFormData.append('photo', data.img[0]);
 
