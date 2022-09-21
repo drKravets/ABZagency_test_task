@@ -1,11 +1,14 @@
 import SuccessRegistration from '../../assets/images/success-registration.svg';
+import styles from './styles.module.scss';
 
 const SignUpSuccess = () => {
   return (
-    <img
-      src={SuccessRegistration}
-      alt='successfully registered'
-    />
+    <div className={styles.imageContainer}>
+      <img
+        src={SuccessRegistration}
+        alt='successfully registered'
+      />
+    </div>
   );
 };
 
